@@ -38,7 +38,7 @@ function renderHistory(){
 
 }
 
-// Function to save location name to the global array and localstorage (input: name, lon, lat)
+// Function to save location name to the global array and localStorage (input: name, lon, lat)
 function saveSearch(name, lon, lat) {
 
   // Create search object
@@ -64,10 +64,17 @@ function saveSearch(name, lon, lat) {
 // Event listener on search button
     // Search city (via function)
 
-// Event listener on city button
-    // Display current weather (via function)
-    // Display 5 day forecast (via function) 
+// Event listener on history buttons
+$("#history").on('click', '.btn', function() {
 
+  const lon = $(this).attr("data-lon");
+  const lat = $(this).attr("data-lat");
+  console.log(lat);
+
+  // Display current weather (via function)
+  // Display 5 day forecast (via function) 
+
+});
 
 renderHistory();
 
