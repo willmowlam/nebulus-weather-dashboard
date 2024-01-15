@@ -25,6 +25,44 @@ function runSearch(query) {
     })
     .then(function (data) {
       console.log(data);
+
+      // More than one result - user must choose which location they want
+      if (data.length > 1) {
+        
+        $("#searchResultsContainer").empty();
+
+        for (i = 0; i < data.length; i++) {
+          
+          // Create button text
+          let state = data[i].state || '';
+          let country = data[i].country || '';
+          if (state) {
+            state = `, ${data[i].state}`;
+          }
+          if (country) {
+            country = `, ${data[i].country}`;
+          }
+          const buttonText = `${data[i].name}${state}${country}`;
+
+          buttonText.trim();
+
+          // Create button
+          const newButton = $('<button>')
+          .text(buttonText)
+          .addClass("btn btn-primary d-block my-2")
+          .attr("data-name", data[i].name)
+          .attr("data-lon", data[i].lon)
+          .attr("data-lat", data[i].lat);
+          $("#searchResultsContainer").append(newButton);
+        }
+
+        const modal = new bootstrap.Modal('#searchResultsModal');
+        modal.show();
+
+     // } else {
+       // one result so set history, get current weather and 5 day forecast
+      }
+
     })
 
   // Use: https://openweathermap.org/api/geocoding-api to return lon/lat
