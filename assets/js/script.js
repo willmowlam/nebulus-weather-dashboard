@@ -24,7 +24,12 @@ function runSearch(query) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      
+      // No location found
+      if (data.length === 0){
+        console.log("nothing found");
+        return false;
+      }
 
       // More than one result - user must choose which location they want
       if (data.length > 1) {
@@ -59,8 +64,10 @@ function runSearch(query) {
         const modal = new bootstrap.Modal('#searchResultsModal');
         modal.show();
 
-     // } else {
-       // one result so set history, get current weather and 5 day forecast
+     } else {
+       // one result so set history, get current weather and 5 day forecast    
+       saveSearch(data[0].name, data[0].lon, data[0].lat);
+       renderHistory();       
       }
 
     })
@@ -79,6 +86,9 @@ function runSearch(query) {
 // Function to render the buttons
 function renderHistory(){
 
+  // Clear the buttons
+  $("#history").empty();
+
   // Read the localStorage key into the global array
   searchHistory = JSON.parse(localStorage.getItem('weatherDashboard_searchHistory')) || [];
 
@@ -90,7 +100,7 @@ function renderHistory(){
       .addClass("btn btn-secondary my-2")
       .attr("data-lon", searchHistory[i].lon)
       .attr("data-lat", searchHistory[i].lat);
-    $("#history").prepend(newButton);
+    $("#history").append(newButton);
   }
 
 }
@@ -147,4 +157,3 @@ $("#history").on('click', '.btn', function() {
 
 renderHistory();
 
-saveSearch("London", 1.5073219, -0.1276474);
