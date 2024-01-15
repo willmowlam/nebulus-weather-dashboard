@@ -61,8 +61,20 @@ function saveSearch(name, lon, lat) {
 
 // Function to get 5 day forecast (input: lon, lat)
 
-// Event listener on search button
-    // Search city (via function)
+// Event listener on search form
+$("#search-form").on("submit", function(e) {
+  e.preventDefault();
+  
+  // Trim any whitespace from search input control
+  const searchText = $("#search-input").val().trim();
+
+  // If we have something to search
+  if (searchText) {
+  // Search city (via function)
+    console.log(searchText);
+  }
+
+});
 
 // Event listener on history buttons
 $("#history").on('click', '.btn', function() {
