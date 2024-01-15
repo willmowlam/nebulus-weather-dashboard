@@ -47,6 +47,11 @@ function saveSearch(name, lon, lat) {
   // Save object to beginning of array of search history 
   searchHistory.unshift(search);
 
+  // Limit the size of the history
+  if (searchHistory.length > maxHistory){
+    searchHistory.splice(maxHistory);
+  }
+
   // Save search history to localStorage
   localStorage.setItem('weatherDashboard_searchHistory', JSON.stringify(searchHistory));
 
