@@ -19,7 +19,13 @@ function runSearch(query) {
 
   const queryUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`;
   
-  console.log(queryUrl);
+  fetch(queryUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    })
 
   // Use: https://openweathermap.org/api/geocoding-api to return lon/lat
   // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key} 
