@@ -21,24 +21,31 @@ let searchHistory = JSON.parse(localStorage.getItem('weatherDashboard_searchHist
 
 // Function to render the buttons
 function renderHistory(){
+
   // Read the localStorage key into the global array
   searchHistory = JSON.parse(localStorage.getItem('weatherDashboard_searchHistory')) || [];
 
   // Save lon and lat in the button data attributes. Display the city name on the button text. 
-  for (i = 0; i < searchHistory.length; i++){
+  for (i = 0; i < searchHistory.length; i++) {
     console.log(searchHistory[i].name);
+    const newButton = $('<button>')
+      .text(searchHistory[i].name)
+      .addClass("btn btn-secondary my-2")
+      .attr("data-lon", searchHistory[i].lon)
+      .attr("data-lat", searchHistory[i].lat);
+    $("#history").prepend(newButton);
   }
 
 }
 
-// Function to save a city to the global array and localstorage (input: city name, lon, lat)
-function saveSearch(city, lon, lat) {
+// Function to save location name to the global array and localstorage (input: name, lon, lat)
+function saveSearch(name, lon, lat) {
 
   // Create search object
-  const search = {city: city, lon: lon, lat: lat};
+  const search = {name: name, lon: lon, lat: lat};
 
   // Save object to beginning of array of search history 
-  searchHistory.unshift(search)
+  searchHistory.unshift(search);
 
   // Save search history to localStorage
   localStorage.setItem('weatherDashboard_searchHistory', JSON.stringify(searchHistory));
