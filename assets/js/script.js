@@ -8,16 +8,29 @@ const maxHistory = 6;
   // eg [{"name":"London", "lat":1.5073219, "lon":-0.1276474}, {...}, {...}]
 let searchHistory = JSON.parse(localStorage.getItem('weatherDashboard_searchHistory')) || [];
 
-// Function to search for city 
+// Search for weather in location in query, save and render to page 
+function runSearch(query) {
+
+  // Remove potential whitespace around query
+  query = query.trim();
+
+  // Only continue if there is something to search
+  if (!query) {return false;}
+
+  const queryUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`;
+  
+  console.log(queryUrl);
+
   // Use: https://openweathermap.org/api/geocoding-api to return lon/lat
-  // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
-    // Display a modal if more than one result is found, so user can select the city they want
+  // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key} 
+  // Display a modal if more than one result is found, so user can select the city they want
     // Otherwise return the long/lat json string for that one result.
     // Cancel button
       // Save city (via function)
       // Get current weather (via function)
-      // Get 5 day forecast
-      // Render buttons
+      // Get 5 day forecast (via function)
+      // Render buttons (via function)
+}
 
 // Function to render the buttons
 function renderHistory(){
@@ -70,8 +83,8 @@ $("#search-form").on("submit", function(e) {
 
   // If we have something to search
   if (searchText) {
-  // Search city (via function)
-    console.log(searchText);
+    // Search location
+    runSearch(searchText);
   }
 
 });
