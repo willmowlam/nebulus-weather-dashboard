@@ -183,6 +183,8 @@ function display5DayForecast(lon, lat) {
 
       $("#forecast").empty();
 
+      $("#forecast").append("<h3>5 Day Forecast:</h3>");
+
       // Loop the data
       for (i = 0; i < data.list.length; i++) {
 
