@@ -128,7 +128,7 @@ function saveSearch(name, lon, lat) {
 // Function to get and render current weather (input: lon, lat)
 function displayCurrentWeather(name, lon, lat){
 
-  const queryUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
+  const queryUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
 
   fetch(queryUrl)
     .then(function (response) {
@@ -144,10 +144,13 @@ function displayCurrentWeather(name, lon, lat){
 
       console.log(data);
 
-      const heading = $("<h2>").text(name + " (date)");
+      const heading = $("<h2>").text(name + ' (date)');
+      const temp = $("<p>").text("Temp: " + data.main.temp + " ℃");
+      const wind = $("<p>").text("Wind: " + data.wind.speed + " KPH");
+      const humidity = $("<p>").text("Humidity: " + data.main.humidity + " %");
 
       $("#today").empty();
-      $("#today").append(heading);
+      $("#today").append(heading, temp, wind, humidity);
 
       // Icon URL is https://openweathermap.org/img/wn/10d@2x.png where 10d is the code
 
