@@ -132,6 +132,9 @@ function saveSearch(name, lon, lat) {
   // Save search history to localStorage
   localStorage.setItem('weatherDashboard_searchHistory', JSON.stringify(searchHistory));
 
+  // Clear the search text
+  $("#search-input").val('');
+
 }
 
 // Function to get and render current weather (input: lon, lat)
@@ -271,4 +274,3 @@ $("#searchResultsContainer").on('click', 'button', function(e) {
 $(function () {
   renderHistory();
 });
-
