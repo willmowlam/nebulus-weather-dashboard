@@ -20,7 +20,7 @@ function runSearch(query) {
   // Only continue if there is something to search
   if (!query) {return false;}
 
-  const queryUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`;
+  const queryUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`;
   
   fetch(queryUrl)
     .then(function (response) {
