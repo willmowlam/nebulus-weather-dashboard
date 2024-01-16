@@ -73,7 +73,7 @@ function runSearch(query) {
 
         renderHistory();
 
-        displayCurrentWeather(data[0].lon, data[0].lat);
+        displayCurrentWeather(data[0].name, data[0].lon, data[0].lat);
 
         // Get 5 day forecast (via function)
 
@@ -98,6 +98,7 @@ function renderHistory(){
     const newButton = $('<button>')
       .text(searchHistory[i].name)
       .addClass("btn btn-secondary my-2")
+      .attr("data-name", searchHistory[i].name)
       .attr("data-lon", searchHistory[i].lon)
       .attr("data-lat", searchHistory[i].lat);
     $("#history").append(newButton);
@@ -125,7 +126,7 @@ function saveSearch(name, lon, lat) {
 }
 
 // Function to get and render current weather (input: lon, lat)
-function displayCurrentWeather(lon, lat){
+function displayCurrentWeather(name, lon, lat){
 
   const queryUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
 
@@ -142,6 +143,11 @@ function displayCurrentWeather(lon, lat){
       }
 
       console.log(data);
+
+      const heading = $("<h2>").text(name + " (date)");
+
+      $("#today").empty();
+      $("#today").append(heading);
 
       // Icon URL is https://openweathermap.org/img/wn/10d@2x.png where 10d is the code
 
@@ -168,10 +174,11 @@ $("#search-form").on("submit", function(e) {
 // Event listener on history buttons
 $("#history").on('click', '.btn', function() {
 
+  const name = $(this).attr("data-name");
   const lon = $(this).attr("data-lon");
   const lat = $(this).attr("data-lat");
 
-  displayCurrentWeather(lon, lat);
+  displayCurrentWeather(name, lon, lat);
 
   // Display 5 day forecast (via function) 
 
@@ -188,7 +195,7 @@ $("#searchResultsContainer").on('click', 'button', function(e) {
 
   renderHistory();
 
-  displayCurrentWeather(lon, lat);
+  displayCurrentWeather(name, lon, lat);
 
   // Get 5 day forecast (via function)
 
