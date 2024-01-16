@@ -75,7 +75,7 @@ function runSearch(query) {
 
         displayCurrentWeather(data[0].name, data[0].lon, data[0].lat);
 
-        // Get 5 day forecast (via function)
+        display5DayForecast(data[0].lon, data[0].lat);
 
       }
 
@@ -128,7 +128,7 @@ function saveSearch(name, lon, lat) {
 // Function to get and render current weather (input: lon, lat)
 function displayCurrentWeather(name, lon, lat){
 
-  const queryUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+  const queryUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
   fetch(queryUrl)
     .then(function (response) {
@@ -163,6 +163,41 @@ function displayCurrentWeather(name, lon, lat){
 }
 
 // Function to get 5 day forecast (input: lon, lat)
+function display5DayForecast(lon, lat) {
+
+  const queryUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&cnt=40&units=metric`;
+
+  fetch(queryUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+
+      // No weather data found
+      if (data.length === 0){
+        console.log("nothing found");
+        return false;
+      }
+      
+      console.log(data);
+
+      // Loop the data
+      for (i = 0; i < data.list.length; i++) {
+
+        const dataTimeString = data.list[i].dt_txt;
+ 
+        // Find all weather data forecast for midday
+        if (dataTimeString.includes("12:00:00")) {
+          // const dataDay = dataTime.dateFormat
+          const date = new Date(data.list[i].dt * 1000); // Convert data timestamp to milliseconds
+          const formattedDate = date.toLocaleDateString();
+ 
+          console.log(formattedDate);
+        }
+      }
+
+    });
+}
 
 // Event listener on search form
 $("#search-form").on("submit", function(e) {
@@ -188,7 +223,7 @@ $("#history").on('click', '.btn', function() {
 
   displayCurrentWeather(name, lon, lat);
 
-  // Display 5 day forecast (via function) 
+  display5DayForecast(lon, lat);
 
 });
 
@@ -205,7 +240,7 @@ $("#searchResultsContainer").on('click', 'button', function(e) {
 
   displayCurrentWeather(name, lon, lat);
 
-  // Get 5 day forecast (via function)
+  display5DayForecast(lon, lat);
 
   // Hide the search modal dialog
   modal.hide();  
