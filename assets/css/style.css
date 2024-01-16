@@ -1,1 +1,8 @@
+.weather-header {
+  background-image: linear-gradient(to right, blue, darkblue);
+}
 
+#forecast article {
+  background-color: #475f79;
+  color: white;
+}

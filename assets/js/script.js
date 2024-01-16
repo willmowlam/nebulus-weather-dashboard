@@ -158,6 +158,7 @@ function displayCurrentWeather(name, lon, lat){
 
       $("#today").empty();
       $("#today").append(heading, temp, wind, humidity);
+      $("#today").addClass("border border-dark p-2");
 
     });
 }
@@ -205,7 +206,7 @@ function display5DayForecast(lon, lat) {
     
           $(heading).append(icon);    
 
-          const forecastContainer = $("<article>").append(heading, temp, wind, humidity).addClass("col");
+          const forecastContainer = $("<article>").append(heading, temp, wind, humidity).addClass("col border border-dark m-3");
           
           $("#forecast").append(forecastContainer);
 
