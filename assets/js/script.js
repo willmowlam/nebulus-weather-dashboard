@@ -28,9 +28,18 @@ function runSearch(query) {
     })
     .then(function (data) {
       
-      // No location found
+      // No location found, so briefly show a message and exit the function
       if (data.length === 0){
-        console.log("nothing found");
+        const elNoResults = $("<div>")
+          .addClass("invalid-feedback")
+          .text("No results found! Please try again.")
+          .insertBefore($(".weather-hr"))
+          .show();
+
+        setTimeout(function() {
+          elNoResults.hide();
+        }, 3000);
+
         return false;
       }
 
@@ -68,7 +77,7 @@ function runSearch(query) {
         modal.show();
 
       } else {
-        // Only one result found so save the search, refresh history buttons and get weather    
+        // Only one result found so save the search, refresh history buttons and get weather
         saveSearch(data[0].name, data[0].lon, data[0].lat);
 
         renderHistory();
@@ -92,7 +101,7 @@ function renderHistory(){
   // Read the localStorage key into the global array
   searchHistory = JSON.parse(localStorage.getItem('weatherDashboard_searchHistory')) || [];
 
-  // Save lon and lat in the button data attributes. Display the city name on the button text. 
+  // Save lon and lat in the button data attributes. Display the city name on the button text.
   for (i = 0; i < searchHistory.length; i++) {
     console.log(searchHistory[i].name);
     const newButton = $('<button>')
