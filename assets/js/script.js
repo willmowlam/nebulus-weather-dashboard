@@ -70,7 +70,7 @@ function runSearch(query) {
 
         renderHistory();
 
-        // Get current weather (via function)
+        displayCurrentWeather(data[0].lon, data[0].lat);
 
         // Get 5 day forecast (via function)
 
@@ -122,6 +122,28 @@ function saveSearch(name, lon, lat) {
 }
 
 // Function to get and render current weather (input: lon, lat)
+function displayCurrentWeather(lon, lat){
+
+  const queryUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
+
+  fetch(queryUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+
+      // No weather data found
+      if (data.length === 0){
+        console.log("nothing found");
+        return false;
+      }
+
+      console.log(data);
+
+      // Icon URL is https://openweathermap.org/img/wn/10d@2x.png where 10d is the code
+
+    });
+}
 
 // Function to get 5 day forecast (input: lon, lat)
 
@@ -145,9 +167,9 @@ $("#history").on('click', '.btn', function() {
 
   const lon = $(this).attr("data-lon");
   const lat = $(this).attr("data-lat");
-  console.log(lat);
 
-  // Display current weather (via function)
+  displayCurrentWeather(lon, lat);
+
   // Display 5 day forecast (via function) 
 
 });
