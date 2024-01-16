@@ -103,7 +103,7 @@ function renderHistory(){
 
   // Save lon and lat in the button data attributes. Display the city name on the button text.
   for (i = 0; i < searchHistory.length; i++) {
-    console.log(searchHistory[i].name);
+
     const newButton = $('<button>')
       .text(searchHistory[i].name)
       .addClass("btn btn-secondary my-2")
@@ -147,11 +147,8 @@ function displayCurrentWeather(name, lon, lat){
 
       // No weather data found
       if (data.length === 0){
-        console.log("nothing found");
         return false;
       }
-
-      console.log(data);
 
       const date = new Date(data.dt * 1000); // Convert data timestamp to milliseconds
       const formattedDate = date.toLocaleDateString();
@@ -185,12 +182,9 @@ function display5DayForecast(lon, lat) {
 
       // No weather data found
       if (data.length === 0){
-        console.log("nothing found");
         return false;
       }
       
-      console.log(data);
-
       $("#forecast").empty();
 
       $("#forecast").append("<h3>5 Day Forecast:</h3>");
