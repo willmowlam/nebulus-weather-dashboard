@@ -144,15 +144,20 @@ function displayCurrentWeather(name, lon, lat){
 
       console.log(data);
 
-      const heading = $("<h2>").text(name + ' (date)');
+      const date = new Date(data.dt * 1000); // Convert data timestamp to milliseconds
+      const formattedDate = date.toLocaleDateString();
+      const heading = $("<h2>").text(name + ' (' + formattedDate + ')');
       const temp = $("<p>").text("Temp: " + data.main.temp + " ℃");
       const wind = $("<p>").text("Wind: " + data.wind.speed + " KPH");
       const humidity = $("<p>").text("Humidity: " + data.main.humidity + " %");
+      const icon = $("<img>").attr("src", `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`)
+                             .attr("alt", 'weather icon')
+                             .attr("title", `${data.weather[0].description}`);
+
+      $(heading).append(icon);
 
       $("#today").empty();
       $("#today").append(heading, temp, wind, humidity);
-
-      // Icon URL is https://openweathermap.org/img/wn/10d@2x.png where 10d is the code
 
     });
 }
