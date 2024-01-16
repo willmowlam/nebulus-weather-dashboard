@@ -64,26 +64,23 @@ function runSearch(query) {
         const modal = new bootstrap.Modal('#searchResultsModal');
         modal.show();
 
-     } else {
-       // one result so set history, get current weather and 5 day forecast    
-       saveSearch(data[0].name, data[0].lon, data[0].lat);
-       renderHistory();       
+      } else {
+        // Only one result found so save the search, refresh history buttons and get weather    
+        saveSearch(data[0].name, data[0].lon, data[0].lat);
+
+        renderHistory();
+
+        // Get current weather (via function)
+
+        // Get 5 day forecast (via function)
+
       }
 
     })
 
-  // Use: https://openweathermap.org/api/geocoding-api to return lon/lat
-  // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key} 
-  // Display a modal if more than one result is found, so user can select the city they want
-    // Otherwise return the long/lat json string for that one result.
-    // Cancel button
-      // Save city (via function)
-      // Get current weather (via function)
-      // Get 5 day forecast (via function)
-      // Render buttons (via function)
 }
 
-// Function to render the buttons
+// Render the history buttons
 function renderHistory(){
 
   // Clear the buttons
@@ -105,7 +102,7 @@ function renderHistory(){
 
 }
 
-// Function to save location name to the global array and localStorage (input: name, lon, lat)
+// Save searched location to the global array and localStorage (input: name, lon, lat)
 function saveSearch(name, lon, lat) {
 
   // Create search object
