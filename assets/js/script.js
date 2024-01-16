@@ -273,5 +273,8 @@ $("#searchResultsContainer").on('click', 'button', function(e) {
 
 });
 
-renderHistory();
+// Wait for DOM to be fully loaded then render the history buttons
+$(function () {
+  renderHistory();
+});
 
