@@ -8,6 +8,9 @@ const maxHistory = 6;
   // eg [{"name":"London", "lat":1.5073219, "lon":-0.1276474}, {...}, {...}]
 let searchHistory = JSON.parse(localStorage.getItem('weatherDashboard_searchHistory')) || [];
 
+// Create a bootstrap modal object for displaying multiple search results
+const modal = new bootstrap.Modal('#searchResultsModal');
+
 // Search for weather in location in query, save and render to page 
 function runSearch(query) {
 
@@ -61,7 +64,7 @@ function runSearch(query) {
           $("#searchResultsContainer").append(newButton);
         }
 
-        const modal = new bootstrap.Modal('#searchResultsModal');
+        // Hide the search modal dialog
         modal.show();
 
       } else {
@@ -171,6 +174,26 @@ $("#history").on('click', '.btn', function() {
   displayCurrentWeather(lon, lat);
 
   // Display 5 day forecast (via function) 
+
+});
+
+// Event listener on button clicks in the search modal dialog
+$("#searchResultsContainer").on('click', 'button', function(e) {
+
+  const name = $(e.target).attr('data-name');
+  const lon = $(e.target).attr('data-lon');
+  const lat = $(e.target).attr('data-lat');
+
+  saveSearch(name, lon, lat);
+
+  renderHistory();
+
+  displayCurrentWeather(lon, lat);
+
+  // Get 5 day forecast (via function)
+
+  // Hide the search modal dialog
+  modal.hide();  
 
 });
 
