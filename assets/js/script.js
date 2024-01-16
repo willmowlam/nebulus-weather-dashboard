@@ -181,6 +181,8 @@ function display5DayForecast(lon, lat) {
       
       console.log(data);
 
+      $("#forecast").empty();
+
       // Loop the data
       for (i = 0; i < data.list.length; i++) {
 
@@ -188,11 +190,23 @@ function display5DayForecast(lon, lat) {
  
         // Find all weather data forecast for midday
         if (dataTimeString.includes("12:00:00")) {
-          // const dataDay = dataTime.dateFormat
+
           const date = new Date(data.list[i].dt * 1000); // Convert data timestamp to milliseconds
-          const formattedDate = date.toLocaleDateString();
- 
-          console.log(formattedDate);
+          const formattedDate = date.toLocaleDateString(); 
+          const heading = $("<h4>").text(formattedDate);
+          const temp = $("<p>").text("Temp: " + data.list[i].main.temp + " ℃");
+          const wind = $("<p>").text("Wind: " + data.list[i].wind.speed + " KPH");
+          const humidity = $("<p>").text("Humidity: " + data.list[i].main.humidity + " %");
+          const icon = $("<img>").attr("src", `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}.png`)
+                                 .attr("alt", 'weather icon')
+                                 .attr("title", `${data.list[i].weather[0].description}`);
+    
+          $(heading).append(icon);    
+
+          const forecastContainer = $("<article>").append(heading, temp, wind, humidity).addClass("col");
+          
+          $("#forecast").append(forecastContainer);
+
         }
       }
 
