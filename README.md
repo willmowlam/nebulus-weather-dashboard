@@ -15,6 +15,7 @@ https://willmowlam.github.io/nebulus-weather-dashboard/
 - Display current weather
 - Display 5-day weather forecast
 - Save up to 6 searches (configurable in script.js)
+- Dates are formatted in browser locale
 
 ## Screenshot
 
