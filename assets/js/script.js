@@ -115,7 +115,7 @@ function renderHistory(){
 
 }
 
-// Save searched location to the global array and localStorage (input: name, lon, lat)
+// Save searched location to the global array and localStorage
 function saveSearch(name, lon, lat) {
 
   // Create search object
@@ -137,7 +137,7 @@ function saveSearch(name, lon, lat) {
 
 }
 
-// Function to get and render current weather (input: lon, lat)
+// Get and render current weather
 function displayCurrentWeather(name, lon, lat){
 
   const queryUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
@@ -172,7 +172,7 @@ function displayCurrentWeather(name, lon, lat){
     });
 }
 
-// Function to get 5 day forecast (input: lon, lat)
+// Get 5 day forecast
 function display5DayForecast(lon, lat) {
 
   const queryUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&cnt=40&units=metric`;
